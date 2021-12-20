@@ -66,11 +66,6 @@ contract Staker {
         return contractDeadline - block.timestamp;
     }
 
-    // TODO: Delete
-    function inbetweenStake() external payable {
-        stake();
-    }
-
     // Fallback function for any eth sent to contract (special function so does not need function keyword)
     receive() external payable {
         stake(); // If you use this.stake{value: msg.value}() then msg.sender will be address(this)

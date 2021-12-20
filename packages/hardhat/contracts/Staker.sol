@@ -7,7 +7,7 @@ import "./ExampleExternalContract.sol";
 contract Staker {
 
     // Point at which the contract can be executed or withdrawn
-    uint256 contractDeadline = block.timestamp + 60 seconds;
+    uint256 contractDeadline = block.timestamp + 72 hours;
     // Has balance past threshold before contractDeadline
     bool ableToExecute = false;
 

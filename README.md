@@ -1,5 +1,26 @@
 # 🏗 scaffold-eth | 🏰 BuidlGuidl
 
+## My implementation
+
+- Deployed on https at `https://sean-eth-speed-run-1.surge.sh/`
+- Deployed on IPFS at `https://ipfs.io/ipfs/Qmez2EZFJ5EzwbDkZCxNnZvpo2LHQVNEFJpmEPuR5VwoXT`
+
+I have went through each point and added some notes beside them on how I handled them.
+
+If redeploy run:
+```bash
+// If make any change to contracts
+yarn deploy --network rinkeby
+// Ensure `const targetNetwork = NETWORKS.rinkeby` in `App.jsx`
+yarn build
+yarn surge & ipfs
+
+// If only make changes to front end
+// Ensure `const targetNetwork = NETWORKS.rinkeby` in `App.jsx`
+yarn build
+yarn surge & ipfs
+```
+
 ## 🚩 Challenge 1: 🥩 Decentralized Staking App
 
 > 🦸 A super power of Ethereum is allowing you, the builder, to create a simple set of rules that an adversarial group of players can use to work together. In this challenge, you create a decentralized application where users can coordinate a group funding effort. If the users cooperate, the money is collected in a second smart contract. If they defect, the worst that can happen is everyone gets their money back. The users only have to trust the code.
@@ -64,9 +85,9 @@ uint256 public constant threshold = 1 ether;
 
 #### 🥅 Goals
 
-- [ ] Do you see the balance of the `Staker` contract go up when you `stake()`?
-- [ ] Is your `balance` correctly tracked?
-- [ ] Do you see the events in the `Staker UI` tab?
+- [x] Do you see the balance of the `Staker` contract go up when you `stake()`?
+- [x] Is your `balance` correctly tracked?
+- [x] Do you see the events in the `Staker UI` tab?
 
 
 ---
@@ -99,9 +120,9 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 > 👩‍💻 You can call `yarn deploy --reset` any time you want a fresh contract
 
 #### 🥅 Goals
-- [ ] Can you see `timeLeft` counting down in the `Staker UI` tab when you trigger a transaction with the faucet?
-- [ ] If you `stake()` enough ETH before the `deadline`, does it call `complete()`?
-- [ ] If you don't `stake()` enough can you `withdraw(address payable)` your funds?
+- [x] Can you see `timeLeft` counting down in the `Staker UI` tab when you trigger a transaction with the faucet?
+- [x] If you `stake()` enough ETH before the `deadline`, does it call `complete()`?
+- [x] If you don't `stake()` enough can you `withdraw(address payable)` your funds?
 
 
 ---
@@ -120,15 +141,20 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 ---
 
 ## ⚔️ Side Quests
-- [ ] Can execute get called more than once, and is that okay?
-- [ ] Can you stake and withdraw freely after the `deadline`, and is that okay?
-- [ ] What are other implications of *anyone* being able to withdraw for someone?
+- [x] Can execute get called more than once, and is that okay?
+  - No, execute can now only be called once
+- [x] Can you stake and withdraw freely after the `deadline`, and is that okay?
+  - You cannot stake after the deadline but you can withdraw, as long as you have a balance to withdraw
+- [x] What are other implications of *anyone* being able to withdraw for someone?
+  - I removed the ability for anyone to withdraw, you can only withdraw your own
 
 ---
 
 ## 🐸 It's a trap!
-- [ ] Make sure funds can't get trapped in the contract! **Try sending funds after you have executed! What happens?**
-- [ ] Try to create a [modifier](https://solidity-by-example.org/function-modifier/) called `notCompleted`. It will check that `ExampleExternalContract` is not completed yet. Use it to protect your `execute` and `withdraw` functions.
+- [x] Make sure funds can't get trapped in the contract! **Try sending funds after you have executed! What happens?**
+  - Can only send funds before deadline and can only execute after deadline so not possible
+- [x] Try to create a [modifier](https://solidity-by-example.org/function-modifier/) called `notCompleted`. It will check that `ExampleExternalContract` is not completed yet. Use it to protect your `execute` and `withdraw` functions.
+  - Due to the change I made this doesn't really make sense
 
 ---
 
